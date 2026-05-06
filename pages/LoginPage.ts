@@ -1,17 +1,11 @@
-import { Locator, Page } from '@playwright/test';
+import { BasePage } from "./BasePages";
 
-export class LoginPage {
-    readonly page: Page;
-    readonly usernameInput: Locator;
-    readonly passwordInput: Locator;
-    readonly loginButton: Locator;
-
-    constructor(page: Page) {
-        this.page = page;
-        this.usernameInput = page.locator('#username');
-        this.passwordInput = page.locator('#password');
-        this.loginButton = page.locator('button[type="submit"]');
-    }
+export class LoginPage extends BasePage {
+   // Definiujemy tylko to, co jest specyficzne dla tej strony
+    private readonly usernameInput = this.page.locator('#username')
+    private readonly passwordInput = this.page.locator('#password')
+    private readonly loginButton = this.page.locator('button[type="submit"]')
+    private readonly flashMessage = this.page.locator('#flash');
 
     async goto() {
         await this.page.goto('https://the-internet.herokuapp.com/login');
@@ -21,5 +15,9 @@ export class LoginPage {
         await this.usernameInput.fill(user);
         await this.passwordInput.fill(pass);
         await this.loginButton.click();
+    }
+
+    async getFlashMessageText() {
+        return await this.flashMessage.innerText();
     }
 }
