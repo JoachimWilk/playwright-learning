@@ -9,5 +9,5 @@ test('Użytkownik powinien zalogować się do bezpieczenego obszaru', async ({ p
 
     // Asercja: Sprawdź czy URL się zmienił lub czy jest komunikacja o sukcesie
     await expect(page).toHaveURL(/.*secure/);
-    await expect(page.locator('#flash')).toContainText('You logged a secure area!');
+    await expect(page.locator('#flash')).toContainText('You logged into a secure area!');
 });
